@@ -2,63 +2,221 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 15 15 15;
-    --foreground: 229 229 229;
-  }
+@import './styles/animations.css';
 
+:root {
+  --primary-color: #2563eb;
+  --secondary-color: #4f46e5;
+  --accent-color: #06b6d4;
+  --background-light: #ffffff;
+  --background-dark: #1a1a1a;
+  --text-primary: #1a1a1a;
+  --text-secondary: #4b5563;
+  --success-color: #059669;
+  --error-color: #dc2626;
+  --warning-color: #d97706;
+  --info-color: #3b82f6;
+}
+
+@layer base {
   body {
-    @apply bg-gray-900 text-gray-100 antialiased;
+    @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 
   ::-webkit-scrollbar {
-    @apply w-2;
+    width: 0.5rem;
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-gray-800;
+    background-color: #1f2937;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-gray-700 rounded hover:bg-gray-600 transition-colors;
+    background-color: #374151;
+    border-radius: 0.25rem;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #4b5563;
   }
 }
 
 @layer components {
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn-primary {
+    @apply px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 
+           transition-colors duration-200 ease-in-out focus:outline-none 
+           focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 hover:scale-[1.02];
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 
+           transition-colors duration-200 ease-in-out focus:outline-none 
+           focus:ring-2 focus:ring-gray-400 focus:ring-offset-2;
+  }
+
+  .card {
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 
+           hover:shadow-xl transition-shadow duration-200 animate-scale-in;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+           bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100
+           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
+           transition-colors duration-200;
+  }
+
+  .nav-link {
+    @apply text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400
+           transition-colors duration-200 px-3 py-2 rounded-md text-sm font-medium;
+  }
+
   .prose {
-    @apply max-w-none;
+    max-width: none;
   }
 
   .prose p {
-    @apply my-3 text-gray-100;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    color: #f3f4f6;
   }
 
   .prose code {
-    @apply text-blue-300 bg-gray-800 px-1.5 py-0.5 rounded text-sm border border-gray-700;
+    color: #93c5fd;
+    background-color: #1f2937;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    border: 1px solid #374151;
   }
 
   .prose pre {
-    @apply bg-gray-800 text-gray-100 p-4 rounded-lg overflow-x-auto border border-gray-700;
+    background-color: #1f2937;
+    color: #f3f4f6;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    border: 1px solid #374151;
+  }
+}
+
+/* Typography */
+.heading-1 {
+  @apply text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl md:text-6xl;
+}
+
+.heading-2 {
+  @apply text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl;
+}
+
+.heading-3 {
+  @apply text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100;
+}
+
+.body-text {
+  @apply text-base text-gray-600 dark:text-gray-300;
+}
+
+/* Layout Components */
+.section {
+  @apply py-12 sm:py-16 lg:py-20;
+}
+
+.grid-layout {
+  @apply grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3;
+}
+
+/* Interactive Elements */
+.interactive-element {
+  @apply cursor-pointer hover:scale-[1.02] transition-transform duration-200;
+}
+
+/* Message transitions */
+.message-transition {
+  @apply animate-fade-in;
+}
+
+/* Loading States */
+.loading-state {
+  @apply animate-pulse bg-gray-200 dark:bg-gray-700 rounded-lg;
+}
+
+/* Scrollbar styling */
+@layer utilities {
+  .scrollbar-custom {
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary-color) transparent;
   }
 
-  .message-transition {
-    @apply animate-fade-in;
+  .scrollbar-custom::-webkit-scrollbar {
+    width: 6px;
   }
 
-  .chat-input {
-    @apply bg-gray-800 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all duration-200;
+  .scrollbar-custom::-webkit-scrollbar-track {
+    background: transparent;
   }
 
-  .primary-button {
-    @apply bg-blue-600 hover:bg-blue-700 transition-colors duration-200;
+  .scrollbar-custom::-webkit-scrollbar-thumb {
+    background-color: var(--secondary-color);
+    border-radius: 3px;
   }
+}
 
-  .suggestion-button {
-    @apply bg-gray-800/50 border border-gray-700 hover:bg-gray-700/50 hover:border-gray-600 transition-all duration-200;
-  }
+/* Glass effect */
+.glass-effect {
+  @apply backdrop-blur-md bg-white/30 dark:bg-black/30;
+}
 
-  .welcome-logo {
-    @apply animate-slide-in;
-  }
+/* These keyframes and styles will apply regardless of Tailwind's purge */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.welcome-logo {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideIn 0.5s ease-out forwards;
+}
+
+.chat-input {
+  background-color: #1f2937;
+  border: 1px solid #374151;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.chat-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px #3b82f6;
+}
+
+.primary-button {
+  background-color: #2563eb;
+  transition: background-color 0.2s;
+}
+
+.primary-button:hover {
+  background-color: #1d4ed8;
+}
+
+.suggestion-button {
+  background-color: rgba(31, 41, 55, 0.5);
+  border: 1px solid #374151;
+  transition: all 0.2s;
+}
+
+.suggestion-button:hover {
+  background-color: rgba(55, 65, 81, 0.5);
+  border-color: #4b5563;
 }

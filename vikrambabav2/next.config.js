@@ -5,12 +5,12 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
+        hostname: '*',
       },
     ],
-    unoptimized: true,
   },
-  output: 'standalone',
+  swcMinify: true,
+  poweredByHeader: false,
 }
 
 module.exports = nextConfig 

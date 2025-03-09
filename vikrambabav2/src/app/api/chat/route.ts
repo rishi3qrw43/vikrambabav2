@@ -1,4 +1,9 @@
 import { NextResponse } from 'next/server';
+import OpenAI from 'openai';
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 const SYSTEM_PROMPT = `You are an expert AI financial advisor. Your role is to provide clear, accurate, and helpful financial advice while being mindful of the following:
 1. Always explain financial concepts in simple terms
@@ -12,21 +17,26 @@ export async function POST(req: Request) {
   try {
     const { message } = await req.json();
 
-    // Make a request to the Notbook LLM server
-    const response = await fetch('http://localhost:11434/api/generate', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'mistral',
-        prompt: `${SYSTEM_PROMPT}\n\nUser: ${message}\nAssistant:`,
-        stream: false,
-      }),
+    if (!process.env.OPENAI_API_KEY) {
+      return NextResponse.json(
+        { error: 'OpenAI API key not configured' },
+        { status: 500 }
+      );
+    }
+
+    const completion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "system", content: SYSTEM_PROMPT },
+        { role: "user", content: message }
+      ],
+      temperature: 0.7,
+      max_tokens: 500,
     });
 
-    const data = await response.json();
-    return NextResponse.json({ response: data.response });
+    return NextResponse.json({ 
+      response: completion.choices[0].message.content 
+    });
   } catch (error) {
     console.error('Error in chat route:', error);
     return NextResponse.json(
