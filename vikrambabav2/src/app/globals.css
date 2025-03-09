@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 15 15 15;
+    --foreground: 229 229 229;
+  }
+
+  body {
+    @apply bg-gray-900 text-gray-100 antialiased;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-800;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-700 rounded hover:bg-gray-600 transition-colors;
+  }
+}
+
+@layer components {
+  .prose {
+    @apply max-w-none;
+  }
+
+  .prose p {
+    @apply my-3 text-gray-100;
+  }
+
+  .prose code {
+    @apply text-blue-300 bg-gray-800 px-1.5 py-0.5 rounded text-sm border border-gray-700;
+  }
+
+  .prose pre {
+    @apply bg-gray-800 text-gray-100 p-4 rounded-lg overflow-x-auto border border-gray-700;
+  }
+
+  .message-transition {
+    @apply transition-all duration-200;
+  }
+
+  .chat-input {
+    @apply bg-gray-800 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all duration-200;
+  }
+
+  .primary-button {
+    @apply bg-blue-600 hover:bg-blue-700 transition-colors duration-200;
+  }
+
+  .suggestion-button {
+    @apply bg-gray-800/50 border border-gray-700 hover:bg-gray-700/50 hover:border-gray-600 transition-all duration-200;
+  }
+
+  .welcome-logo {
+    @apply transition-all duration-300 ease-in-out;
+  }
+}
