@@ -43,7 +43,11 @@
   }
 
   .message-transition {
-    @apply transition-all duration-200;
+    @apply opacity-0 transform translate-y-4 transition-all duration-300 ease-in-out;
+  }
+
+  .message-transition.show {
+    @apply opacity-100 translate-y-0;
   }
 
   .chat-input {
