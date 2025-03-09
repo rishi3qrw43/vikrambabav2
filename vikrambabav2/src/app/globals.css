@@ -43,11 +43,7 @@
   }
 
   .message-transition {
-    @apply opacity-0 transform translate-y-4 transition-all duration-300 ease-in-out;
-  }
-
-  .message-transition.show {
-    @apply opacity-100 translate-y-0;
+    @apply animate-fade-in;
   }
 
   .chat-input {
@@ -63,6 +59,6 @@
   }
 
   .welcome-logo {
-    @apply transition-all duration-300 ease-in-out;
+    @apply animate-slide-in;
   }
 }
